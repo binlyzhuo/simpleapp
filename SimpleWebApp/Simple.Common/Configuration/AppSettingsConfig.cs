@@ -21,5 +21,15 @@ namespace Simple.Common.Configuration
 
             }
         }
+
+        public static void Configure(IConfiguration? configuration)
+        {
+            if(_configuration!=null)
+            {
+                throw new Exception($"{nameof(Configuration)}不可修改！");
+            }
+
+            _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
+        }
     }
 }
