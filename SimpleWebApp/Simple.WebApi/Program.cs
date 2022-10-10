@@ -1,5 +1,6 @@
 using NLog;
 using NLog.Web;
+using Simple.Common.Startup;
 
 var logger = NLog.LogManager.Setup().LoadConfigurationFromAppSettings().GetCurrentClassLogger();
 logger.Debug("启动中……");
@@ -7,10 +8,12 @@ logger.Debug("启动中……");
 try
 {
     var builder = WebApplication.CreateBuilder(args);
+    builder.SimpleConfigure();
 
     // Add services to the container.
 
     builder.Services.AddControllers();
+
 
     var app = builder.Build();
 
