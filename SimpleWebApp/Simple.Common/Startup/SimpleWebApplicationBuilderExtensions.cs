@@ -15,7 +15,7 @@ namespace Simple.Common.Startup
         public static WebApplicationBuilder SimpleConfigure(this WebApplicationBuilder builder)
         {
             var configuration = builder.Configuration;
-            AppSettingsConfig.Configure(configuration);
+            AppSettings.Configure(configuration);
 
             builder.Host.UseNLog();
             builder.Services.AddHostedService<SimpleHostedService>();

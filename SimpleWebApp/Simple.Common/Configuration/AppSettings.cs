@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Simple.Common.Configuration
 {
-    public static class AppSettingsConfig
+    public static class AppSettings
     {
         private static IConfiguration? _configuration;
 
@@ -30,6 +30,17 @@ namespace Simple.Common.Configuration
             }
 
             _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
+        }
+
+
+        /// <summary>
+        /// Redis 配置
+        /// </summary>
+        public static class Redis
+        {
+            public static bool Enabled => Configuration.GetValue<bool>("Redis:Enabled");
+            public static string ConnectionString => Configuration["Redis:ConnectionString"];
+            public static string Instance => Configuration["Redis:Instance"] ?? "Default";
         }
     }
 }
