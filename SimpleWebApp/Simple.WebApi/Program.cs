@@ -1,5 +1,8 @@
+using Microsoft.AspNetCore.Mvc;
 using NLog;
 using NLog.Web;
+using Simple.Common.Components.DataValidation;
+using Simple.Common.Result;
 using Simple.Common.Startup;
 
 var logger = NLog.LogManager.Setup().LoadConfigurationFromAppSettings().GetCurrentClassLogger();
@@ -18,6 +21,19 @@ try
     var app = builder.Build();
 
     // Configure the HTTP request pipeline.
+
+    builder.Services.AddControllers()
+        .AddDataValidation()
+        .AddAppResult(options =>
+        {
+            options.ResultFactory = resultException =>
+            {
+                // AppResultException ¶¼·µ»Ø 200 ×´Ì¬Âë
+                var objectResult = new ObjectResult(resultException.AppResult);
+                objectResult.StatusCode = StatusCodes.Status200OK;
+                return objectResult;
+            };
+        });
 
     app.UseAuthorization();
 
