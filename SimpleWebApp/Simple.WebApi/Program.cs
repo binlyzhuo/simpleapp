@@ -1,9 +1,11 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.OpenApi.Models;
 using NLog;
 using NLog.Web;
 using Simple.Common.Components.DataValidation;
 using Simple.Common.Result;
 using Simple.Common.Startup;
+using Simple.Common.Swagger;
 
 var logger = NLog.LogManager.Setup().LoadConfigurationFromAppSettings().GetCurrentClassLogger();
 logger.Debug("启动中……");
@@ -34,6 +36,14 @@ try
                 return objectResult;
             };
         });
+
+    //builder.Services.AddEndpointsApiExplorer();
+
+    // Swagger
+    builder.Services.AddSimpleSwagger(options =>
+    {
+        options.SwaggerDoc("v1", new OpenApiInfo { Title = "简单三层接口文档v1", Version = "v1" });
+    });
 
     app.UseAuthorization();
 
