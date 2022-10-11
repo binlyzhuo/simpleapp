@@ -3,6 +3,7 @@ using Microsoft.OpenApi.Models;
 using NLog;
 using NLog.Web;
 using Simple.Common.Components.DataValidation;
+using Simple.Common.Components.DependencyInjection;
 using Simple.Common.Result;
 using Simple.Common.Startup;
 using Simple.Common.Swagger;
@@ -20,7 +21,7 @@ try
     builder.Services.AddControllers();
 
 
-    var app = builder.Build();
+    
 
     // Configure the HTTP request pipeline.
 
@@ -44,6 +45,11 @@ try
     {
         options.SwaggerDoc("v1", new OpenApiInfo { Title = "简单三层接口文档v1", Version = "v1" });
     });
+
+    // 服务层：自动添加 Service 层以 Service 结尾的服务
+    builder.Services.AddAutoServices("Simple.Services");
+
+    var app = builder.Build();
 
     app.UseAuthorization();
 
