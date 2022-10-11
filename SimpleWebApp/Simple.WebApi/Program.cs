@@ -5,6 +5,7 @@ using NLog.Web;
 using Simple.Common.Components.DataValidation;
 using Simple.Common.Components.DependencyInjection;
 using Simple.Common.Result;
+using Simple.Common.Services;
 using Simple.Common.Startup;
 using Simple.Common.Swagger;
 
@@ -45,6 +46,9 @@ try
     {
         options.SwaggerDoc("v1", new OpenApiInfo { Title = "简单三层接口文档v1", Version = "v1" });
     });
+
+    // 服务层：添加基础服务
+    builder.Services.AddSimpleBaseServices();
 
     // 服务层：自动添加 Service 层以 Service 结尾的服务
     builder.Services.AddAutoServices("Simple.Services");

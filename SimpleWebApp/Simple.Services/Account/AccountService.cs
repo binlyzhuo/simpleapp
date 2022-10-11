@@ -15,9 +15,13 @@ namespace Simple.Services.Account
         private readonly ICurrentUserService _currentUser;
         private readonly CacheService _cacheService;
 
-        public AccountService()
+        public AccountService(SimpleDbContext context, ICurrentUserService currentUser, CacheService cacheService)
         {
-
+            this._context = context;
+            this._currentUser = currentUser;
+            this._cacheService = cacheService;
         }
+
+
     }
 }
