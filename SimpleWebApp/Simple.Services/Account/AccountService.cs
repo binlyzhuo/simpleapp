@@ -1,5 +1,6 @@
 ﻿using Simple.Common.Services;
 using Simple.Repository.Data;
+using Simple.Services.Account.Models;
 using Simple.Services.Cache;
 using System;
 using System.Collections.Generic;
@@ -22,6 +23,14 @@ namespace Simple.Services.Account
             this._cacheService = cacheService;
         }
 
-
+        /// <summary>
+        /// 获取 JwtToken
+        /// </summary>
+        /// <param name="login"></param>
+        /// <returns></returns>
+        public async Task<string> GetTokenAsync(LoginModel login)
+        {
+            return await Task.Run(() => "455");
+        }
     }
 }

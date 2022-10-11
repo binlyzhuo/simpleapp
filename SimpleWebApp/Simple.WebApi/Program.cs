@@ -8,6 +8,7 @@ using Simple.Common.Result;
 using Simple.Common.Services;
 using Simple.Common.Startup;
 using Simple.Common.Swagger;
+using Simple.Repository.Extensions;
 
 var logger = NLog.LogManager.Setup().LoadConfigurationFromAppSettings().GetCurrentClassLogger();
 logger.Debug("启动中……");
@@ -15,17 +16,16 @@ logger.Debug("启动中……");
 try
 {
     var builder = WebApplication.CreateBuilder(args);
+
+    var configuration = builder.Configuration;
+
     builder.SimpleConfigure();
 
     // Add services to the container.
-
     builder.Services.AddControllers();
 
 
-    
-
     // Configure the HTTP request pipeline.
-
     builder.Services.AddControllers()
         .AddDataValidation()
         .AddAppResult(options =>
@@ -46,6 +46,9 @@ try
     {
         options.SwaggerDoc("v1", new OpenApiInfo { Title = "简单三层接口文档v1", Version = "v1" });
     });
+
+    // 仓储层
+    builder.Services.AddRepository(configuration["ConnectionStrings:SqlServer"]);
 
     // 服务层：添加基础服务
     builder.Services.AddSimpleBaseServices();

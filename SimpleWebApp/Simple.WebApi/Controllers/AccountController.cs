@@ -20,6 +20,7 @@ namespace Simple.WebApi.Controllers
         [HttpPost]
         public async Task<AppResult> Login([FromBody] LoginModel login)
         {
+            var token = await _accountService.GetTokenAsync(login);
             return AppResult.Status200OK("成功", "");
         }
     }

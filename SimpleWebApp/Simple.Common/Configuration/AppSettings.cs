@@ -32,6 +32,15 @@ namespace Simple.Common.Configuration
             _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
         }
 
+        /// <summary>
+        /// 记录请求
+        /// </summary>
+        public static class RecordRequest
+        {
+            public static bool IsEnabled => Configuration.GetValue<bool>("RecordRequest:IsEnabled");
+            public static bool IsSkipGetMethod => Configuration.GetValue<bool>("RecordRequest:IsSkipGetMethod");
+        }
+
 
         /// <summary>
         /// Redis 配置
